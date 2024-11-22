@@ -47,14 +47,15 @@ def main():
     data_test=(load_data(test_file_path))
     data_test=cleaning_data(data_test)
     X_inp=data_test.drop(columns=remove_columns+[target_column, id_column])
-    
-    X_inp=data_preprocessing(X_inp)
+    y_inp=data_test[target_column]
+    X_inp, y_inp=data_preprocessing(X_inp, y_inp)
     y_out=model.predict(X_inp)
     out_data=pd.DataFrame(data_test[id_column][X_inp.index])
     out_data=out_data.assign(**{target_column:y_out})
 
+    y_true=y_inp
     print(out_data)
-    print(f"Root Mean Square Error: {np.sqrt(np.mean(y_out**2))}")
+    print(f"Root Mean Square Error: {np.sqrt(np.mean((y_out-y_true)**2))}")
     save_data(out_data, output_file_path)
 
 

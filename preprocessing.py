@@ -20,7 +20,7 @@ def knn_outlier_detection(X, k, threshold):
     distances, _ = nbrs.kneighbors(X)
     outlier_scores = distances[:, k]  # Distance to the kth neighbor
     if threshold is None:
-        threshold = np.percentile(outlier_scores, 95)
+        threshold = np.percentile(outlier_scores, 80)
 
     print(threshold)
     is_outlier = outlier_scores > threshold
@@ -39,7 +39,7 @@ def data_preprocessing(x_data,y_data=None):
         else:
             numerical_features.append(c)
     
-    is_outlier = knn_outlier_detection(np.array(x_data[numerical_features]), k=2, threshold=None)
+    is_outlier = knn_outlier_detection(np.array(x_data[numerical_features]), k=500, threshold=None)
     x_data = x_data[~is_outlier].reset_index(drop=True)
     
 
