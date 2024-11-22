@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import pandas as pd
+from sklearn.impute import SimpleImputer
 
 def knn_outlier_detection(X, k, threshold):
     """
@@ -28,7 +29,6 @@ def knn_outlier_detection(X, k, threshold):
 def data_preprocessing(x_data,y_data):
 
     numerical_features = ['Item_Weight','Item_Visibility','Item_MRP','Outlet_Establishment_Year']
-
     print('With Outliers: ',x_data.shape[0])
     
     is_outlier = knn_outlier_detection(np.array(x_data[numerical_features]), k=2, threshold=None)
@@ -41,3 +41,15 @@ def data_preprocessing(x_data,y_data):
     x_data = pd.get_dummies(x_data,columns=categorical_data,drop_first=True)
 
     return x_data, y_data
+
+def cleaning_data(data):
+    for item in data.columns:
+        print(f'No. of Empty items in {item} is: {data[item].isnull().sum()}')
+    imputer = SimpleImputer(missing_values=np.nan,strategy="mean")
+    data.iloc[:,1]=imputer.fit_transform(data.iloc[:,1].values.reshape(-1, 1))
+    imputer_string = SimpleImputer(missing_values=np.nan,strategy='most_frequent')
+    data.iloc[:,8]=imputer_string.fit_transform(data.iloc[:,8].values.reshape(-1, 1))
+
+    # data.to_csv("./cleaned_dataset.csv", index=False) 
+
+    return data
