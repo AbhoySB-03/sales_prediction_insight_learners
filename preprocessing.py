@@ -25,12 +25,9 @@ def knn_outlier_detection(X, k, threshold):
     is_outlier = outlier_scores > threshold
     return is_outlier
 
-def data_preprocessing(dataset):
+def data_preprocessing(x_data,y_data):
 
     numerical_features = ['Item_Weight','Item_Visibility','Item_MRP','Outlet_Establishment_Year']
-    
-    x_data = dataset.drop(columns=['Item_Outlet_Sales'])
-    y_data = dataset['Item_Outlet_Sales']
 
     print('With Outliers: ',x_data.shape[0])
     
