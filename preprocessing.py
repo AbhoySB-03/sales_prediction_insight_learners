@@ -26,7 +26,7 @@ def knn_outlier_detection(X, k, threshold):
     is_outlier = outlier_scores > threshold
     return is_outlier
 
-def data_preprocessing(x_data,y_data):
+def data_preprocessing(x_data,y_data=None):
 
     print('With Outliers: ',x_data.shape[0])
     cols = x_data.columns.to_list()
@@ -41,13 +41,15 @@ def data_preprocessing(x_data,y_data):
     
     is_outlier = knn_outlier_detection(np.array(x_data[numerical_features]), k=2, threshold=None)
     x_data = x_data[~is_outlier].reset_index(drop=True)
-    y_data = y_data[~is_outlier].reset_index(drop=True)
+    
 
     print(f"Dataset size after outlier removal: {x_data.shape[0]}")
     
     x_data = pd.get_dummies(x_data,columns=categorical_data,drop_first=True)
-
-    return x_data, y_data
+    if y_data is not None:
+        y_data = y_data[~is_outlier].reset_index(drop=True)
+        return x_data,y_data
+    return x_data
 
 def cleaning_data(data):
     for item in data.columns:
