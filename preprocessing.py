@@ -61,7 +61,7 @@ def apply_pca(data, test_data=None):
 
     return data,pca
 
-def insert_missing_data(data:pd.DataFrame):
+def missing_data_processing(data:pd.DataFrame):
     for item in data.columns: 
         print(f'No. of Empty items in {item} is: {data[item].isnull().sum()}')
     imputer = SimpleImputer(missing_values=np.nan,strategy="mean")

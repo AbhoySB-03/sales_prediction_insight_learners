@@ -32,7 +32,7 @@ def save_data(data: pd.DataFrame,fp):
     
 def main():
     data=load_data(train_file_path)
-    data=insert_missing_data(data)
+    data=missing_data_processing(data)
 
     target_column='Item_Outlet_Sales'
     id_column='Item_Identifier'
@@ -45,7 +45,7 @@ def main():
     model.fit(X,y)
 
     data_test=(load_data(test_file_path))
-    data_test=insert_missing_data(data_test)
+    data_test=missing_data_processing(data_test)
     X_inp=data_test.drop(columns=remove_columns+[target_column, id_column])
     
     X_inp=data_preprocessing(X_inp)
