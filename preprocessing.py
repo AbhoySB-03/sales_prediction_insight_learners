@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import pandas as pd
 from sklearn.impute import SimpleImputer
-
+from sklearn.decomposition import PCA
 def knn_outlier_detection(X, k, threshold):
     """
     Identifies outliers in the dataset using KNN.
@@ -51,8 +51,18 @@ def data_preprocessing(x_data,y_data=None):
         return x_data,y_data
     return x_data
 
-def cleaning_data(data):
-    for item in data.columns:
+def apply_pca(data, test_data=None):
+    pca = PCA(n_components=2)
+    if test_data is not None:
+        data = pca.transform(data)
+        return data
+    
+    data = pca.fit_transform(data)
+
+    return data,pca
+
+def missing_data_processing(data:pd.DataFrame):
+    for item in data.columns: 
         print(f'No. of Empty items in {item} is: {data[item].isnull().sum()}')
     imputer = SimpleImputer(missing_values=np.nan,strategy="mean")
     data.iloc[:,1]=imputer.fit_transform(data.iloc[:,1].values.reshape(-1, 1))
