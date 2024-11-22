@@ -42,6 +42,9 @@ def main():
     y=data[target_column]
 
     X,y=data_preprocessing(X,y)
+    
+    print(X.shape)
+    X,pca_obj=apply_pca(X,True)
     model.fit(X,y)
 
     data_test=(load_data(test_file_path))
@@ -49,8 +52,11 @@ def main():
     X_inp=data_test.drop(columns=remove_columns+[target_column, id_column])
     y_inp=data_test[target_column]
     X_inp, y_inp=data_preprocessing(X_inp, y_inp)
+    x_inp_indices=X_inp.index
+    X_inp=pca_obj.transform(X_inp)
+    print(X_inp.shape)
     y_out=model.predict(X_inp)
-    out_data=pd.DataFrame(data_test[id_column][X_inp.index])
+    out_data=pd.DataFrame(data_test[id_column][x_inp_indices])
     out_data=out_data.assign(**{target_column:y_out})
 
     y_true=y_inp

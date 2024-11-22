@@ -51,14 +51,15 @@ def data_preprocessing(x_data,y_data=None):
         return x_data,y_data
     return x_data
 
-def apply_pca(data, test_data=None):
-    pca = PCA(n_components=2)
-    if test_data is not None:
+def apply_pca(data, return_pca_object=False):
+    pca = PCA(n_components=5)
+
+    pca.fit(data)
+    if not return_pca_object:
         data = pca.transform(data)
         return data
     
-    data = pca.fit_transform(data)
-
+    data = pca.transform(data)
     return data,pca
 
 def missing_data_processing(data:pd.DataFrame):

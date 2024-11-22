@@ -8,7 +8,6 @@ Author: Abhoy, Yuvraj
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
 
 import pandas as pd
