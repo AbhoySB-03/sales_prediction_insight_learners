@@ -25,7 +25,7 @@ def load_data(fp):
         return pd.read_excel(fp)
 
 def main():
-    data=preprocess(load_data(train_file_path))
+    data=load_data(train_file_path)
 
     target_column='Item_Outlet_Sales'
     id_column='Item_Identifier'
@@ -34,12 +34,15 @@ def main():
     X=data.drop(columns=remove_columns+[target_column, id_column])
     y=data[target_column]
 
+    X,y=preprocess(X,y)
     model.fit(X,y)
 
     data_test=(load_data(test_file_path))
 
     X_inp=data_test.drop(columns=remove_columns+[target_column, id_column])
     y_out=model.predict(X_inp)
+
+    X_inp,y_out=preprocess(X_inp, y_out)
     out_data=pd.DataFrame([data_test[id_column],y_out])
 
     print(out_data)
