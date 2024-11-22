@@ -28,15 +28,22 @@ def knn_outlier_detection(X, k, threshold):
 
 def data_preprocessing(x_data,y_data):
 
-    numerical_features = ['Item_Weight','Item_Visibility','Item_MRP','Outlet_Establishment_Year']
     print('With Outliers: ',x_data.shape[0])
+    cols = x_data.columns.to_list()
+    numerical_features = []
+    categorical_data = []
+
+    for c in cols:
+        if x_data[c].dtype.name in ['object','category']:
+            categorical_data.append(c)
+        else:
+            numerical_features.append(c)
     
     is_outlier = knn_outlier_detection(np.array(x_data[numerical_features]), k=2, threshold=None)
     x_data = x_data[~is_outlier].reset_index(drop=True)
     y_data = y_data[~is_outlier].reset_index(drop=True)
 
     print(f"Dataset size after outlier removal: {x_data.shape[0]}")
-    categorical_data = ['Item_Identifier','Item_Fat_Content','Item_Type','Outlet_Identifier','Outlet_Type','Outlet_Size','Outlet_Location_Type']
     
     x_data = pd.get_dummies(x_data,columns=categorical_data,drop_first=True)
 
