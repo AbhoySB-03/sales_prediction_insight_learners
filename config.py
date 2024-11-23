@@ -10,11 +10,9 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 
-import pandas as pd
-
 # preprocessing
 
 train_file_path='SP_Train.xlsx'
-output_file_path='SP_Output.xlsx'
+output_file_path='Insight_Learners_SalesPredictionTask_submission.xlsx'
 
-model=RandomForestRegressor(max_depth=50)
+model=RandomForestRegressor(max_depth=110, min_samples_leaf=41, min_samples_split=10, n_estimators=161)
