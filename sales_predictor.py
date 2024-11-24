@@ -8,7 +8,7 @@ import argparse as agp
 from preprocessing import *
 import numpy as np
 
-DEBUG=True
+DEBUG=False
 
 def load_data(fp):
     '''
