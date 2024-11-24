@@ -45,6 +45,7 @@ def data_preprocessing(x_data: pd.DataFrame,y_data=None, k=500, perc=80, remove_
     
     x_data = pd.get_dummies(x_data,columns=categorical_data,drop_first=True)
    
+    # Ordinal Encoding
     # for c in categorical_data:
     #     mapping={}
     #     uniques=x_data[c].unique()
@@ -67,8 +68,8 @@ def data_preprocessing(x_data: pd.DataFrame,y_data=None, k=500, perc=80, remove_
         return x_data,y_data
     return x_data
 
-def apply_pca(data, return_pca_object=False):
-    pca = PCA(n_components=5)
+def apply_pca(data, n_comp=5, return_pca_object=False):
+    pca = PCA(n_components=n_comp)
 
     pca.fit(data)
     if not return_pca_object:
