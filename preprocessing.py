@@ -1,3 +1,8 @@
+'''
+Contains methods for preprocessing of Data
+
+Author: Yuvraj Chowhan, Abhoy Sagar Bhowmik
+'''
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import pandas as pd
