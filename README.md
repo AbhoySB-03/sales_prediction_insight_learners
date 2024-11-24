@@ -2,7 +2,7 @@
 This repository contains the programs and the datasets used in the project.
 
 The main programs:
-  1. sales_predictor.py : Will use a training dataset (by default, SP_Train.xlsx) to fit a model and then use it to predict a test dataset.
+  1. sales_predictor.py : Will use a training dataset (by default, SP_Train.xlsx) to fit a model and then use it to predict for the features of a test dataset.
 
       To run the perdiction task: _python sales_predictor.py --test_file <test_dataset_file_addtess> \[--train_file <train_dataset_file_location>\]_
      
